@@ -1,4 +1,5 @@
-const http = require('http')
+const express = require('express')
+const app = express()
 
 let users = [
     {
@@ -11,11 +12,15 @@ let users = [
     },
 ]
 
-const app = http.createServer((request, response) => {
-  response.writeHead(200, { 'Content-Type': 'application/json' })
-  response.end(JSON.stringify(users))
+app.get('/', (request, response) => {
+    response.send('<h1>Servidor con express</h1>')
+})
+
+app.get('/api/users', (request, response) => {
+    response.json(users)
 })
 
 const PORT = 3001
-app.listen(PORT)
-console.log(`El servidor está levantado en el puerto ${PORT}`) 
+app.listen(PORT, () => {
+    console.log(`El servidor está levantado en el puerto ${PORT}`) 
+})
